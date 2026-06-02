@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: asp-gateway
@@ -9,6 +12,43 @@ spring:
             locator:
               enabled: true
               lower-case-service-id: true
+          routes:
+            - id: aspmanager-auth-service
+              uri: lb://ASPMANAGER-AUTH-SERVICE
+              predicates:
+                - Path=/auth/**
+              filters:
+                - name: JwtAuthFilter
+                  args:
+                    excludePaths: /auth/login,/auth/validate
+
+            - id: aspmanager-usuario-service
+              uri: lb://ASPMANAGER-USUARIO-SERVICE
+              predicates:
+                - Path=/usuarios/**,/professores/**
+              filters:
+                - JwtAuthFilter
+
+            - id: aspmanager-escola-service
+              uri: lb://ASPMANAGER-ESCOLA-SERVICE
+              predicates:
+                - Path=/instituicoes/**,/escolas/**,/disciplinas/**
+              filters:
+                - JwtAuthFilter
+
+            - id: aspmanager-espaco-service
+              uri: lb://ASPMANAGER-ESPACO-SERVICE
+              predicates:
+                - Path=/espacos/**
+              filters:
+                - JwtAuthFilter
+
+            - id: aspmanager-software-service
+              uri: lb://ASPMANAGER-SOFTWARE-SERVICE
+              predicates:
+                - Path=/softwares/**
+              filters:
+                - JwtAuthFilter
 
 eureka:
   client:
