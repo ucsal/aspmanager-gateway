@@ -16,7 +16,7 @@ spring:
             - id: aspmanager-auth-service
               uri: lb://ASPMANAGER-AUTH-SERVICE
               predicates:
-                - Path=/auth/**
+                - Path=/api/auth/**
               filters:
                 - name: JwtAuthFilter
                   args:
@@ -25,32 +25,32 @@ spring:
             - id: aspmanager-usuario-service
               uri: lb://ASPMANAGER-USUARIO-SERVICE
               predicates:
-                - Path=/usuarios/**,/professores/**
+                - Path=/api/v1/usuarios/**
               filters:
                 - JwtAuthFilter
 
             - id: aspmanager-escola-service
               uri: lb://ASPMANAGER-ESCOLA-SERVICE
               predicates:
-                - Path=/instituicoes/**,/escolas/**,/disciplinas/**
+                - Path=/api/v1/instituicoes/**,/api/v1/escolas/**,/api/v1/disciplinas/**
               filters:
                 - JwtAuthFilter
 
             - id: aspmanager-espaco-service
               uri: lb://ASPMANAGER-ESPACO-SERVICE
               predicates:
-                - Path=/espacos/**
+                - Path=/api/v1/espacos/**
               filters:
                 - JwtAuthFilter
 
             - id: aspmanager-software-service
               uri: lb://ASPMANAGER-SOFTWARE-SERVICE
               predicates:
-                - Path=/softwares/**
+                - Path=/api/v1/softwares/**
               filters:
                 - JwtAuthFilter
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_URL}
