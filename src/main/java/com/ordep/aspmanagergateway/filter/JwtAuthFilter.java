@@ -57,12 +57,20 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
                             return unauthorized(exchange);
                         }
 
+                        String method = exchange.getRequest().getMethod().name();
+                        String path   = exchange.getRequest().getPath().pathWithinApplication().value();
+                        String role   = Objects.toString(usuarioAuthResponse.perfil(), "");
+
+                        if (!RoleAuthorizationRules.isAuthorized(method, path, role)) {
+                            return forbidden(exchange);
+                        }
+
                         ServerWebExchange mutatedExchange = exchange.mutate()
                                 .request(exchange.getRequest().mutate()
                                         .headers(headers -> {
                                             headers.remove(HttpHeaders.AUTHORIZATION);
-                                            headers.set("X-User-Id", String.valueOf(usuarioAuthResponse.id()));
-                                            headers.set("X-User-Role", Objects.toString(usuarioAuthResponse.perfil(), ""));
+                                            headers.set("X-User-Id",   String.valueOf(usuarioAuthResponse.id()));
+                                            headers.set("X-User-Role", role);
                                         })
                                         .build())
                                 .build();
@@ -82,6 +90,11 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
 
     private static Mono<Void> unauthorized(ServerWebExchange exchange) {
         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+        return exchange.getResponse().setComplete();
+    }
+
+    private static Mono<Void> forbidden(ServerWebExchange exchange) {
+        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
         return exchange.getResponse().setComplete();
     }
 
