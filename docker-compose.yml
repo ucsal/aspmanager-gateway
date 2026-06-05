@@ -1,20 +1,16 @@
-version: '1.0'
-
 services:
 
   postgres:
-    build:
-      context: ../postgres
     image: postgres:16
     container_name: aspmanager-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - microservices-network
 
@@ -26,8 +22,11 @@ services:
     ports:
       - "8761:8761"
     healthcheck:
-      test: ["CMD", "curl", "-f", ${EUREKA_ACTUATOR_URL}]
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8761/actuator/health || exit 1"]
       interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
     networks:
       - microservices-network
 
@@ -68,13 +67,16 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - postgres
-      - aspmanager-service-discovery
+      postgres:
+        condition: service_started
+      aspmanager-service-discovery:
+        condition: service_healthy
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}db_usuario
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       EUREKA_URL: ${EUREKA_URL}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_URL}
     networks:
       - microservices-network
 
@@ -119,13 +121,16 @@ services:
     ports:
       - "8085:8085"
     depends_on:
-      - postgres
-      - aspmanager-service-discovery
+      postgres:
+        condition: service_started
+      aspmanager-service-discovery:
+        condition: service_healthy
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}db_software
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       EUREKA_URL: ${EUREKA_URL}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_URL}
     networks:
       - microservices-network
 
@@ -135,10 +140,3 @@ volumes:
 networks:
   microservices-network:
     driver: bridge
-
-
-
-
-
-
-
