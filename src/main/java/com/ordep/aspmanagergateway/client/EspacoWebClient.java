@@ -11,7 +11,7 @@ public class EspacoWebClient {
     private final WebClient espacoClient;
 
     public EspacoWebClient(WebClient.Builder webBuilder) {
-        this.espacoClient = WebClient.builder()
+        this.espacoClient = webBuilder
                 .baseUrl("lb://ASPMANAGER-ESPACO-SERVICE")
                 .build();
     }

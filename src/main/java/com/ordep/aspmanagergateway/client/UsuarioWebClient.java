@@ -11,7 +11,7 @@ public class UsuarioWebClient {
     private final WebClient usuarioClient;
 
     public UsuarioWebClient(WebClient.Builder webBuilder) {
-        this.usuarioClient = WebClient.builder()
+        this.usuarioClient = webBuilder
                 .baseUrl("lb://ASPMANAGER-USUARIO-SERVICE")
                 .build();
     }

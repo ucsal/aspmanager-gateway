@@ -11,7 +11,7 @@ public class SoftwareWebClient {
     private final WebClient softwareClient;
 
     public SoftwareWebClient(WebClient.Builder webBuilder) {
-        this.softwareClient = WebClient.builder()
+        this.softwareClient = webBuilder
                 .baseUrl("lb://ASPMANAGER-SOFTWARE-SERVICE")
                 .build();
     }

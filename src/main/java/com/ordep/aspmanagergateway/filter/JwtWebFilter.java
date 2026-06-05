@@ -74,7 +74,6 @@ public class JwtWebFilter implements WebFilter {
                     ServerWebExchange mutatedExchange = exchange.mutate()
                             .request(exchange.getRequest().mutate()
                                     .headers(headers -> {
-                                        headers.remove(HttpHeaders.AUTHORIZATION);
                                         headers.set("X-User-Id", String.valueOf(usuarioAuthResponse.id()));
                                         headers.set("X-User-Role", role);
                                     })

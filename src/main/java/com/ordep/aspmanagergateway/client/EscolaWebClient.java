@@ -12,7 +12,7 @@ public class EscolaWebClient {
     private final WebClient escolaClient;
 
     public EscolaWebClient(WebClient.Builder webBuilder) {
-        this.escolaClient = WebClient.builder()
+        this.escolaClient = webBuilder
                 .baseUrl("lb://ASPMANAGER-ESCOLA-SERVICE")
                 .build();
     }
