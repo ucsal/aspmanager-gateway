@@ -3,6 +3,8 @@ package com.ordep.aspmanagergateway.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
+import java.util.List;
+
 @Schema(description = "Resposta de usuário")
 @Builder
 public record UsuarioResponse(
@@ -28,5 +30,8 @@ public record UsuarioResponse(
         Long idProfessor,
 
         @Schema(description = "Identificador de escola vinculada a professor quando aplicável", example = "1")
-        Long idEscola) {
+        Long idEscola,
+
+        @Schema(description = "Telefones do usuário", example = "[\"71999998888\", \"7132017000\"]")
+        List<String> telefones) {
 }
