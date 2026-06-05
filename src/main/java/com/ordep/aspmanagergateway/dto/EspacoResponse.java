@@ -25,6 +25,9 @@ public record EspacoResponse(
         @Schema(description = "Localização", example = "Bloco B - 2º andar")
         String localizacao,
 
+        @Schema(description = "Tipo de computadores disponíveis", example = "Desktop i5 16GB")
+        String tipoComputadores,
+
         @Schema(description = "Tipo de espaço", example = "LABORATORIO")
         TipoEspaco tipoEspaco,
 

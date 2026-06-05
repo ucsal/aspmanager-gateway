@@ -30,10 +30,11 @@ public class OrquestracaoService {
         return escolaWebClient.buscarPorId(escolaId)
                 .flatMap(escolaResponse -> usuarioWebClient.buscarPorId(escolaResponse.idCoordenador()).map(usuarioResponse -> EscolaCompletoResponse.builder()
                         .id(escolaResponse.id())
+                        .nome(escolaResponse.nome())
+                        .statusRegistro(escolaResponse.statusRegistro())
                         .coordenador(usuarioResponse)
                         .idInstituicao(escolaResponse.idInstituicao())
                         .idsDisciplinas(escolaResponse.idsDisciplinas())
-                        .statusRegistro(escolaResponse.statusRegistro())
                         .build())
                 );
     }
