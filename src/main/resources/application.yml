@@ -13,6 +13,43 @@ spring:
               enabled: true
               lower-case-service-id: true
           routes:
+            # --- Proxy para API docs dos microserviços (sem autenticação) ---
+            - id: swagger-auth-docs
+              uri: lb://ASPMANAGER-AUTH-SERVICE
+              predicates:
+                - Path=/ms/auth/v3/api-docs
+              filters:
+                - RewritePath=/ms/auth/v3/api-docs, /v3/api-docs
+
+            - id: swagger-usuario-docs
+              uri: lb://ASPMANAGER-USUARIO-SERVICE
+              predicates:
+                - Path=/ms/usuario/v3/api-docs
+              filters:
+                - RewritePath=/ms/usuario/v3/api-docs, /v3/api-docs
+
+            - id: swagger-escola-docs
+              uri: lb://ASPMANAGER-ESCOLA-SERVICE
+              predicates:
+                - Path=/ms/escola/v3/api-docs
+              filters:
+                - RewritePath=/ms/escola/v3/api-docs, /v3/api-docs
+
+            - id: swagger-espaco-docs
+              uri: lb://ASPMANAGER-ESPACO-SERVICE
+              predicates:
+                - Path=/ms/espaco/v3/api-docs
+              filters:
+                - RewritePath=/ms/espaco/v3/api-docs, /v3/api-docs
+
+            - id: swagger-software-docs
+              uri: lb://ASPMANAGER-SOFTWARE-SERVICE
+              predicates:
+                - Path=/ms/software/v3/api-docs
+              filters:
+                - RewritePath=/ms/software/v3/api-docs, /v3/api-docs
+
+            # --- Rotas de negócio (com autenticação JWT) ---
             - id: aspmanager-auth-service
               uri: lb://ASPMANAGER-AUTH-SERVICE
               predicates:
@@ -54,3 +91,22 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Gateway (Orquestração)
+        url: /v3/api-docs
+      - name: Auth Service
+        url: /ms/auth/v3/api-docs
+      - name: Usuário Service
+        url: /ms/usuario/v3/api-docs
+      - name: Escola Service
+        url: /ms/escola/v3/api-docs
+      - name: Espaço Service
+        url: /ms/espaco/v3/api-docs
+      - name: Software Service
+        url: /ms/software/v3/api-docs
+    urls-primary-name: Gateway (Orquestração)
+  api-docs:
+    enabled: true
