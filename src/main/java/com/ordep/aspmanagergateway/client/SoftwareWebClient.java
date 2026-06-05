@@ -1,8 +1,10 @@
 package com.ordep.aspmanagergateway.client;
 
 import com.ordep.aspmanagergateway.dto.SolicitacaoSoftwareResponse;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -16,13 +18,16 @@ public class SoftwareWebClient {
                 .build();
     }
 
-    public Mono<SolicitacaoSoftwareResponse> buscarSolicitacaoPorId(Long id)  {
+    public Mono<SolicitacaoSoftwareResponse> buscarSolicitacaoPorId(Long id) {
         return softwareClient.get()
-                .uri("/api/v1/softwares/solicitacoes/{id}")
-                .attribute("id", id)
+                .uri("/api/v1/softwares/solicitacoes/{id}", id)
                 .retrieve()
-                .bodyToMono(SolicitacaoSoftwareResponse.class)
-                .onErrorResume(throwable -> Mono.error(new RuntimeException("Não foi possível buscar espaço por Id")));
+                .onStatus(HttpStatusCode::is4xxClientError,
+                        resp -> Mono.error(new ResponseStatusException(resp.statusCode(),
+                                "Solicitação de software não encontrada: " + id)))
+                .onStatus(HttpStatusCode::is5xxServerError,
+                        resp -> Mono.error(new RuntimeException("Erro interno em ms-software ao buscar solicitação id: " + id)))
+                .bodyToMono(SolicitacaoSoftwareResponse.class);
     }
 
 }
