@@ -40,7 +40,7 @@ public class JwtWebFilter implements WebFilter {
         String requestPath = exchange.getRequest().getPath().pathWithinApplication().value();
 
         // proteger somente endpoints orquestração do gateway
-        if (!PATH_MATCHER.matchStart("/api/v1/orq/**", requestPath)) {
+        if (!PATH_MATCHER.match("/api/v1/orq/**", requestPath)) {
             return chain.filter(exchange);
         }
 
