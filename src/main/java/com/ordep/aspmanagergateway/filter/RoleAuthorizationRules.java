@@ -23,81 +23,81 @@ public final class RoleAuthorizationRules {
 
     static {
 
-        // ── ms-usuario (/usuarios/**, /professores/**) ────────────────────────
+        // ── ms-usuario (/api/v1/usuarios/**, /api/v1/usuarios/professores/**) ──
 
         // Endpoint interno chamado pelo ms-auth via Feign — sem cargo necessário
-        RULES.put("GET:/usuarios/email/**",                    List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/usuarios/email/**",                    List.of("ADMIN", "PROFESSOR"));
 
         // Operações exclusivas de ADMIN
-        RULES.put("POST:/usuarios",                            List.of("ADMIN"));
-        RULES.put("GET:/usuarios",                             List.of("ADMIN"));
-        RULES.put("PATCH:/usuarios/*",                         List.of("ADMIN"));
-        RULES.put("DELETE:/usuarios/*",                        List.of("ADMIN"));
+        RULES.put("POST:/api/v1/usuarios",                            List.of("ADMIN"));
+        RULES.put("GET:/api/v1/usuarios",                             List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/usuarios/*",                         List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/usuarios/*",                        List.of("ADMIN"));
 
-        RULES.put("GET:/professores",                          List.of("ADMIN"));
-        RULES.put("GET:/professores/*",                        List.of("ADMIN"));
-        RULES.put("PUT:/professores/*",                        List.of("ADMIN"));
-        RULES.put("DELETE:/professores/*",                     List.of("ADMIN"));
+        RULES.put("GET:/api/v1/usuarios/professores",                 List.of("ADMIN"));
+        RULES.put("GET:/api/v1/usuarios/professores/*",               List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/usuarios/professores/*",               List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/usuarios/professores/*",            List.of("ADMIN"));
 
         // Operações de qualquer autenticado (próprio usuário ou admin)
-        RULES.put("GET:/usuarios/*",                           List.of("ADMIN", "PROFESSOR"));
-        RULES.put("PUT:/usuarios/*",                           List.of("ADMIN", "PROFESSOR"));
-        RULES.put("PATCH:/usuarios/*/alterar-senha",           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/usuarios/*",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("PUT:/api/v1/usuarios/*",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("PATCH:/api/v1/usuarios/*/alterar-senha",           List.of("ADMIN", "PROFESSOR"));
 
-        // ── ms-escola (/instituicoes/**, /escolas/**, /disciplinas/**) ─────────
+        // ── ms-escola (/api/v1/instituicoes/**, /api/v1/escolas/**, /api/v1/disciplinas/**) ──
 
         // Operações exclusivas de ADMIN
-        RULES.put("POST:/instituicoes",                        List.of("ADMIN"));
-        RULES.put("PUT:/instituicoes/*",                       List.of("ADMIN"));
-        RULES.put("PATCH:/instituicoes/*",                     List.of("ADMIN"));
-        RULES.put("DELETE:/instituicoes/*",                    List.of("ADMIN"));
+        RULES.put("POST:/api/v1/instituicoes",                        List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/instituicoes/*",                       List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/instituicoes/*",                     List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/instituicoes/*",                    List.of("ADMIN"));
 
-        RULES.put("POST:/escolas",                             List.of("ADMIN"));
-        RULES.put("PUT:/escolas/*",                            List.of("ADMIN"));
-        RULES.put("PATCH:/escolas/*",                          List.of("ADMIN"));
-        RULES.put("DELETE:/escolas/*",                         List.of("ADMIN"));
-        RULES.put("POST:/escolas/*/disciplinas",               List.of("ADMIN"));
+        RULES.put("POST:/api/v1/escolas",                             List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/escolas/*",                            List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/escolas/*",                          List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/escolas/*",                         List.of("ADMIN"));
+        RULES.put("POST:/api/v1/escolas/*/disciplinas",               List.of("ADMIN"));
 
-        RULES.put("PUT:/disciplinas/*",                        List.of("ADMIN"));
-        RULES.put("PATCH:/disciplinas/*",                      List.of("ADMIN"));
-        RULES.put("DELETE:/disciplinas/*",                     List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/disciplinas/*",                        List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/disciplinas/*",                      List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/disciplinas/*",                     List.of("ADMIN"));
 
         // Leitura disponível para ambos os cargos
-        RULES.put("GET:/instituicoes/**",                      List.of("ADMIN", "PROFESSOR"));
-        RULES.put("GET:/escolas/**",                           List.of("ADMIN", "PROFESSOR"));
-        RULES.put("GET:/disciplinas/**",                       List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/instituicoes/**",                      List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/escolas/**",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/disciplinas/**",                       List.of("ADMIN", "PROFESSOR"));
 
-        // ── ms-espaco (/espacos/**) ───────────────────────────────────────────
+        // ── ms-espaco (/api/v1/espacos/**) ──────────────────────────────────────
 
         // Mais específicos primeiro
-        RULES.put("POST:/espacos/solicitacoes",                List.of("PROFESSOR"));
-        RULES.put("GET:/espacos/solicitacoes/minhas",          List.of("PROFESSOR"));
-        RULES.put("GET:/espacos/solicitacoes/**",              List.of("ADMIN"));
-        RULES.put("PATCH:/espacos/solicitacoes/**",            List.of("ADMIN"));
-        RULES.put("DELETE:/espacos/solicitacoes/**",           List.of("ADMIN"));
+        RULES.put("POST:/api/v1/espacos/solicitacoes",                List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/espacos/solicitacoes/minhas",          List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/espacos/solicitacoes/**",              List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/espacos/solicitacoes/**",            List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/espacos/solicitacoes/**",           List.of("ADMIN"));
 
         // CRUD de espaços — só ADMIN gerencia, ambos consultam
-        RULES.put("POST:/espacos",                             List.of("ADMIN"));
-        RULES.put("PUT:/espacos/*",                            List.of("ADMIN"));
-        RULES.put("PATCH:/espacos/*",                          List.of("ADMIN"));
-        RULES.put("DELETE:/espacos/*",                         List.of("ADMIN"));
-        RULES.put("GET:/espacos/**",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("POST:/api/v1/espacos",                             List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/espacos/*",                            List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/espacos/*",                          List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/espacos/*",                         List.of("ADMIN"));
+        RULES.put("GET:/api/v1/espacos/**",                           List.of("ADMIN", "PROFESSOR"));
 
-        // ── ms-software (/softwares/**) ───────────────────────────────────────
+        // ── ms-software (/api/v1/softwares/**) ──────────────────────────────────
 
         // Mais específicos primeiro
-        RULES.put("POST:/softwares/solicitacoes",              List.of("PROFESSOR"));
-        RULES.put("GET:/softwares/solicitacoes/minhas",        List.of("PROFESSOR"));
-        RULES.put("GET:/softwares/solicitacoes/**",            List.of("ADMIN"));
-        RULES.put("PATCH:/softwares/solicitacoes/**",          List.of("ADMIN"));
-        RULES.put("DELETE:/softwares/solicitacoes/**",         List.of("ADMIN"));
+        RULES.put("POST:/api/v1/softwares/solicitacoes",              List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/softwares/solicitacoes/minhas",        List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/softwares/solicitacoes/**",            List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/softwares/solicitacoes/**",          List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/softwares/solicitacoes/**",         List.of("ADMIN"));
 
         // CRUD de softwares — só ADMIN gerencia, ambos consultam
-        RULES.put("POST:/softwares",                           List.of("ADMIN"));
-        RULES.put("PUT:/softwares/*",                          List.of("ADMIN"));
-        RULES.put("PATCH:/softwares/*",                        List.of("ADMIN"));
-        RULES.put("DELETE:/softwares/*",                       List.of("ADMIN"));
-        RULES.put("GET:/softwares/**",                         List.of("ADMIN", "PROFESSOR"));
+        RULES.put("POST:/api/v1/softwares",                           List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/softwares/*",                          List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/softwares/*",                        List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/softwares/*",                       List.of("ADMIN"));
+        RULES.put("GET:/api/v1/softwares/**",                         List.of("ADMIN", "PROFESSOR"));
     }
 
     private RoleAuthorizationRules() {}
@@ -106,7 +106,7 @@ public final class RoleAuthorizationRules {
      * Verifica se o cargo informado tem permissão para acessar o par (método, path).
      *
      * @param method  método HTTP (GET, POST, PUT, PATCH, DELETE)
-     * @param path    path da requisição (ex: /espacos/solicitacoes/5)
+     * @param path    path da requisição (ex: /api/v1/espacos/solicitacoes/5)
      * @param role    cargo do usuário autenticado (ex: "ADMIN", "PROFESSOR")
      * @return {@code true} se autorizado, {@code false} caso contrário
      */
