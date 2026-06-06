@@ -22,6 +22,7 @@ public class EscolaWebClient {
     public Mono<EscolaResponse> buscarPorId(Long id) {
         return escolaClient.get()
                 .uri("/api/v1/escolas/{id}", id)
+                .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
                         resp -> Mono.error(new ResponseStatusException(resp.statusCode(),
@@ -34,6 +35,7 @@ public class EscolaWebClient {
     public Mono<DisciplinaResponse> buscarDisciplinaPorId(Long id) {
         return escolaClient.get()
                 .uri("/api/v1/disciplinas/{id}", id)
+                .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
                         resp -> Mono.error(new ResponseStatusException(resp.statusCode(),

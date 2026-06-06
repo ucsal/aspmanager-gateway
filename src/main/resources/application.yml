@@ -57,7 +57,7 @@ spring:
               filters:
                 - name: JwtAuthFilter
                   args:
-                    excludePaths: /auth/login,/auth/validate
+                    excludePaths: /api/auth/login,/api/auth/validate
 
             - id: aspmanager-usuario-service
               uri: lb://ASPMANAGER-USUARIO-SERVICE

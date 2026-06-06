@@ -21,6 +21,7 @@ public class EspacoWebClient {
     public Mono<EspacoResponse> buscarEspacoPorId(Long id) {
         return espacoClient.get()
                 .uri("/api/v1/espacos/{id}", id)
+                .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
                         resp -> Mono.error(new ResponseStatusException(resp.statusCode(),
@@ -33,6 +34,7 @@ public class EspacoWebClient {
     public Mono<SolicitacaoEspacoResponse> buscarSolicitacaoPorId(Long id) {
         return espacoClient.get()
                 .uri("/api/v1/espacos/solicitacoes/{id}", id)
+                .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
                         resp -> Mono.error(new ResponseStatusException(resp.statusCode(),

@@ -21,6 +21,7 @@ public class SoftwareWebClient {
     public Mono<SolicitacaoSoftwareResponse> buscarSolicitacaoPorId(Long id) {
         return softwareClient.get()
                 .uri("/api/v1/softwares/solicitacoes/{id}", id)
+                .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
                         resp -> Mono.error(new ResponseStatusException(resp.statusCode(),

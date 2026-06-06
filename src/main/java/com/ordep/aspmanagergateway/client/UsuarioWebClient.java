@@ -21,6 +21,7 @@ public class UsuarioWebClient {
     public Mono<UsuarioResponse> buscarPorId(Long id) {
         return usuarioClient.get()
                 .uri("/api/v1/usuarios/{id}", id)
+                .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
                         resp -> Mono.error(new ResponseStatusException(resp.statusCode(),
