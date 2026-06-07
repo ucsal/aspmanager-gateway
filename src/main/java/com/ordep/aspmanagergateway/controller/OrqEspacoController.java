@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/v1/orq/espacos")
+@RequestMapping("/api/v1/orq/espaco")
 public class OrqEspacoController {
 
     private final OrquestracaoService orquestracaoService;
@@ -19,7 +19,7 @@ public class OrqEspacoController {
         this.orquestracaoService = orquestracaoService;
     }
 
-    @GetMapping("/solicitacoes/{id}/completo")
+    @GetMapping("/solicitacao/{id}/completo")
     public Mono<ResponseEntity<SolicitacaoEspacoCompletoResponse>> buscarSolicitacaoEspacoCompleto(@PathVariable Long id) {
         return orquestracaoService.buscarSolicitacaoEspacoCompleto(id).map(ResponseEntity::ok);
     }
