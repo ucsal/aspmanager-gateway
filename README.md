@@ -10,7 +10,7 @@ Este e o servico de API Gateway do projeto ASPManager, responsavel por centraliz
 
 ## Como rodar o projeto
 
-O gateway inclui scripts que facilitam a inicializacao de toda a arquitetura de microsservicos e infraestrutura de banco de dados associada.
+O gateway inclui scripts que facilitam a inicializacao de toda a arquitetura de microsservicos e infraestrutura de banco de dados associada. Estao disponiveis scripts para Linux/Mac (`.sh`) e Windows (`.bat`).
 
 ### Ambiente Local (Desenvolvimento Nativo)
 
@@ -38,21 +38,38 @@ A melhor forma de subir toda a infraestrutura, incluindo o banco de dados Postgr
    SPRING_DATASOURCE_USERNAME=postgres
    SPRING_DATASOURCE_PASSWORD=postgres
    ```
-2. Execute o script de inicializacao:
-   ```bash
-   ./start.sh
-   ```
+
+2. Execute o script de inicializacao correspondente ao seu sistema operacional:
+   - **Linux / Mac**:
+     ```bash
+     ./start.sh
+     ```
+   - **Windows**:
+     ```cmd
+     start.bat
+     ```
+   
    O script ira verificar se todos os repositorios dos microsservicos estao clonados na pasta pai (clonando-os se necessario), criara a pasta do postgres copiando o arquivo `init.sql` inicial e, em seguida, subira os conteineres do Docker em background.
+
+   **Flag `--build`**: 
+   Caso voce tenha feito alteracoes no codigo de algum microsservico e precise que as imagens Docker sejam recriadas com o codigo mais recente, execute o script passando a flag `--build`:
+   - Linux/Mac: `./start.sh --build`
+   - Windows: `start.bat --build`
 
 3. Para acompanhar os logs, execute:
    ```bash
    docker compose logs -f
    ```
 
-4. Para parar e remover os conteineres, execute:
-   ```bash
-   ./stop.sh
-   ```
+4. Para parar e remover os conteineres, execute o script de parada:
+   - **Linux / Mac**:
+     ```bash
+     ./stop.sh
+     ```
+   - **Windows**:
+     ```cmd
+     stop.bat
+     ```
 
 ## Acesso as Documentacoes (Swagger)
 
