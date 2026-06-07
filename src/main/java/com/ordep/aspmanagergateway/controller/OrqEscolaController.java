@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/v1/orq/escolas")
+@RequestMapping("/api/v1/orq/escola")
 public class OrqEscolaController {
 
     private final OrquestracaoService orquestracaoService;
