@@ -23,81 +23,81 @@ public final class RoleAuthorizationRules {
 
     static {
 
-        // ── ms-usuario (/api/v1/usuarios/**, /api/v1/usuarios/professores/**) ──
+        // ── ms-usuario (/api/v1/usuario/**, /api/v1/usuario/professor/**) ──
 
         // Endpoint interno chamado pelo ms-auth via Feign — sem cargo necessário
-        RULES.put("GET:/api/v1/usuarios/email/**",                    List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/usuario/email/**",                    List.of("ADMIN", "PROFESSOR"));
 
         // Operações exclusivas de ADMIN
-        RULES.put("POST:/api/v1/usuarios",                            List.of("ADMIN"));
-        RULES.put("GET:/api/v1/usuarios",                             List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/usuarios/*",                         List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/usuarios/*",                        List.of("ADMIN"));
+        RULES.put("POST:/api/v1/usuario",                            List.of("ADMIN"));
+        RULES.put("GET:/api/v1/usuario",                             List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/usuario/*",                         List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/usuario/*",                        List.of("ADMIN"));
 
-        RULES.put("GET:/api/v1/usuarios/professores",                 List.of("ADMIN"));
-        RULES.put("GET:/api/v1/usuarios/professores/*",               List.of("ADMIN"));
-        RULES.put("PUT:/api/v1/usuarios/professores/*",               List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/usuarios/professores/*",            List.of("ADMIN"));
+        RULES.put("GET:/api/v1/usuario/professor",                 List.of("ADMIN"));
+        RULES.put("GET:/api/v1/usuario/professor/*",               List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/usuario/professor/*",               List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/usuario/professor/*",            List.of("ADMIN"));
 
         // Operações de qualquer autenticado (próprio usuário ou admin)
-        RULES.put("GET:/api/v1/usuarios/*",                           List.of("ADMIN", "PROFESSOR"));
-        RULES.put("PUT:/api/v1/usuarios/*",                           List.of("ADMIN", "PROFESSOR"));
-        RULES.put("PATCH:/api/v1/usuarios/*/alterar-senha",           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/usuario/*",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("PUT:/api/v1/usuario/*",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("PATCH:/api/v1/usuario/*/alterar-senha",           List.of("ADMIN", "PROFESSOR"));
 
-        // ── ms-escola (/api/v1/instituicoes/**, /api/v1/escolas/**, /api/v1/disciplinas/**) ──
+        // ── ms-escola (/api/v1/instituicao/**, /api/v1/escola/**, /api/v1/disciplina/**) ──
 
         // Operações exclusivas de ADMIN
-        RULES.put("POST:/api/v1/instituicoes",                        List.of("ADMIN"));
-        RULES.put("PUT:/api/v1/instituicoes/*",                       List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/instituicoes/*",                     List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/instituicoes/*",                    List.of("ADMIN"));
+        RULES.put("POST:/api/v1/instituicao",                        List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/instituicao/*",                       List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/instituicao/*",                     List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/instituicao/*",                    List.of("ADMIN"));
 
-        RULES.put("POST:/api/v1/escolas",                             List.of("ADMIN"));
-        RULES.put("PUT:/api/v1/escolas/*",                            List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/escolas/*",                          List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/escolas/*",                         List.of("ADMIN"));
-        RULES.put("POST:/api/v1/escolas/*/disciplinas",               List.of("ADMIN"));
+        RULES.put("POST:/api/v1/escola",                             List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/escola/*",                            List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/escola/*",                          List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/escola/*",                         List.of("ADMIN"));
+        RULES.put("POST:/api/v1/escola/*/disciplina",               List.of("ADMIN"));
 
-        RULES.put("PUT:/api/v1/disciplinas/*",                        List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/disciplinas/*",                      List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/disciplinas/*",                     List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/disciplina/*",                        List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/disciplina/*",                      List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/disciplina/*",                     List.of("ADMIN"));
 
         // Leitura disponível para ambos os cargos
-        RULES.put("GET:/api/v1/instituicoes/**",                      List.of("ADMIN", "PROFESSOR"));
-        RULES.put("GET:/api/v1/escolas/**",                           List.of("ADMIN", "PROFESSOR"));
-        RULES.put("GET:/api/v1/disciplinas/**",                       List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/instituicao/**",                      List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/escola/**",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("GET:/api/v1/disciplina/**",                       List.of("ADMIN", "PROFESSOR"));
 
-        // ── ms-espaco (/api/v1/espacos/**) ──────────────────────────────────────
+        // ── ms-espaco (/api/v1/espaco/**) ──────────────────────────────────────
 
         // Mais específicos primeiro
-        RULES.put("POST:/api/v1/espacos/solicitacoes",                List.of("PROFESSOR"));
-        RULES.put("GET:/api/v1/espacos/solicitacoes/minhas",          List.of("PROFESSOR"));
-        RULES.put("GET:/api/v1/espacos/solicitacoes/**",              List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/espacos/solicitacoes/**",            List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/espacos/solicitacoes/**",           List.of("ADMIN"));
+        RULES.put("POST:/api/v1/espaco/solicitacao",                List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/espaco/solicitacao/minhas",          List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/espaco/solicitacao/**",              List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/espaco/solicitacao/**",            List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/espaco/solicitacao/**",           List.of("ADMIN"));
 
         // CRUD de espaços — só ADMIN gerencia, ambos consultam
-        RULES.put("POST:/api/v1/espacos",                             List.of("ADMIN"));
-        RULES.put("PUT:/api/v1/espacos/*",                            List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/espacos/*",                          List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/espacos/*",                         List.of("ADMIN"));
-        RULES.put("GET:/api/v1/espacos/**",                           List.of("ADMIN", "PROFESSOR"));
+        RULES.put("POST:/api/v1/espaco",                             List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/espaco/*",                            List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/espaco/*",                          List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/espaco/*",                         List.of("ADMIN"));
+        RULES.put("GET:/api/v1/espaco/**",                           List.of("ADMIN", "PROFESSOR"));
 
-        // ── ms-software (/api/v1/softwares/**) ──────────────────────────────────
+        // ── ms-software (/api/v1/software/**) ──────────────────────────────────
 
         // Mais específicos primeiro
-        RULES.put("POST:/api/v1/softwares/solicitacoes",              List.of("PROFESSOR"));
-        RULES.put("GET:/api/v1/softwares/solicitacoes/minhas",        List.of("PROFESSOR"));
-        RULES.put("GET:/api/v1/softwares/solicitacoes/**",            List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/softwares/solicitacoes/**",          List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/softwares/solicitacoes/**",         List.of("ADMIN"));
+        RULES.put("POST:/api/v1/software/solicitacao",              List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/software/solicitacao/minhas",        List.of("PROFESSOR"));
+        RULES.put("GET:/api/v1/software/solicitacao/**",            List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/software/solicitacao/**",          List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/software/solicitacao/**",         List.of("ADMIN"));
 
         // CRUD de softwares — só ADMIN gerencia, ambos consultam
-        RULES.put("POST:/api/v1/softwares",                           List.of("ADMIN"));
-        RULES.put("PUT:/api/v1/softwares/*",                          List.of("ADMIN"));
-        RULES.put("PATCH:/api/v1/softwares/*",                        List.of("ADMIN"));
-        RULES.put("DELETE:/api/v1/softwares/*",                       List.of("ADMIN"));
-        RULES.put("GET:/api/v1/softwares/**",                         List.of("ADMIN", "PROFESSOR"));
+        RULES.put("POST:/api/v1/software",                           List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/software/*",                          List.of("ADMIN"));
+        RULES.put("PATCH:/api/v1/software/*",                        List.of("ADMIN"));
+        RULES.put("DELETE:/api/v1/software/*",                       List.of("ADMIN"));
+        RULES.put("GET:/api/v1/software/**",                         List.of("ADMIN", "PROFESSOR"));
     }
 
     private RoleAuthorizationRules() {}
