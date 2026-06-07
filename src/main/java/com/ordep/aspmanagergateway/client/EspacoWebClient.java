@@ -20,7 +20,7 @@ public class EspacoWebClient {
 
     public Mono<EspacoResponse> buscarEspacoPorId(Long id) {
         return espacoClient.get()
-                .uri("/api/v1/espacos/{id}", id)
+                .uri("/api/v1/espaco/{id}", id)
                 .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
@@ -33,7 +33,7 @@ public class EspacoWebClient {
 
     public Mono<SolicitacaoEspacoResponse> buscarSolicitacaoPorId(Long id) {
         return espacoClient.get()
-                .uri("/api/v1/espacos/solicitacoes/{id}", id)
+                .uri("/api/v1/espaco/solicitacao/{id}", id)
                 .header("X-User-Id", "0")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,
