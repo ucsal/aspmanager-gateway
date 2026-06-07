@@ -19,7 +19,7 @@ public class OrqSoftwareController {
         this.orquestracaoService = orquestracaoService;
     }
 
-    @GetMapping("/solicitacoes/{id}/completo")
+    @GetMapping("/solicitacao/{id}/completo")
     public Mono<ResponseEntity<SolicitacaoSoftwareCompletoResponse>> buscarSolicitacaoEspacoCompleto(@PathVariable Long id) {
         return orquestracaoService.buscarSolicitacaoSoftwareCompleto(id).map(ResponseEntity::ok);
     }
