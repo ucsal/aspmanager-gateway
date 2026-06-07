@@ -30,7 +30,7 @@ done
 if [ ! -d "../postgres" ]; then
   echo "Criando estrutura de pastas do Postgres..."
   mkdir -p ../postgres
-  touch ../postgres/init.sql
+  cp src/main/resources/init.sql ../postgres/init.sql
 fi
 
 echo "Subindo os contêineres do Docker..."
