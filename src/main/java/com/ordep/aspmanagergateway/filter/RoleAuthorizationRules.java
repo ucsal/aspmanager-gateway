@@ -56,7 +56,7 @@ public final class RoleAuthorizationRules {
         RULES.put("PUT:/api/v1/escola/*",                            List.of("ADMIN"));
         RULES.put("PATCH:/api/v1/escola/*",                          List.of("ADMIN"));
         RULES.put("DELETE:/api/v1/escola/*",                         List.of("ADMIN"));
-        RULES.put("POST:/api/v1/escola/*/disciplina",               List.of("ADMIN"));
+        RULES.put("POST:/api/v1/disciplina",                        List.of("ADMIN"));
 
         RULES.put("PUT:/api/v1/disciplina/*",                        List.of("ADMIN"));
         RULES.put("PATCH:/api/v1/disciplina/*",                      List.of("ADMIN"));
@@ -86,7 +86,7 @@ public final class RoleAuthorizationRules {
         // ── ms-software (/api/v1/software/**) ──────────────────────────────────
 
         // Mais específicos primeiro
-        RULES.put("POST:/api/v1/software/solicitacao",              List.of("PROFESSOR"));
+        RULES.put("POST:/api/v1/software/solicitacoes",             List.of("PROFESSOR"));
         RULES.put("GET:/api/v1/software/solicitacao/minhas",        List.of("PROFESSOR"));
         RULES.put("GET:/api/v1/software/solicitacao/**",            List.of("ADMIN"));
         RULES.put("PATCH:/api/v1/software/solicitacao/**",          List.of("ADMIN"));
