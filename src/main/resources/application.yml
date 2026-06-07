@@ -62,28 +62,28 @@ spring:
             - id: aspmanager-usuario-service
               uri: lb://ASPMANAGER-USUARIO-SERVICE
               predicates:
-                - Path=/api/v1/usuarios/**
+                - Path=/api/v1/usuario/**
               filters:
                 - JwtAuthFilter
 
             - id: aspmanager-escola-service
               uri: lb://ASPMANAGER-ESCOLA-SERVICE
               predicates:
-                - Path=/api/v1/instituicoes/**,/api/v1/escolas/**,/api/v1/disciplinas/**
+                - Path=/api/v1/instituicao/**,/api/v1/escola/**,/api/v1/disciplina/**
               filters:
                 - JwtAuthFilter
 
             - id: aspmanager-espaco-service
               uri: lb://ASPMANAGER-ESPACO-SERVICE
               predicates:
-                - Path=/api/v1/espacos/**
+                - Path=/api/v1/espaco/**
               filters:
                 - JwtAuthFilter
 
             - id: aspmanager-software-service
               uri: lb://ASPMANAGER-SOFTWARE-SERVICE
               predicates:
-                - Path=/api/v1/softwares/**
+                - Path=/api/v1/software/**
               filters:
                 - JwtAuthFilter
 
