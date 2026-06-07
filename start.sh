@@ -4,12 +4,12 @@ echo "Iniciando workspace ASPManager..."
 
 # Dicionário com os repositórios (Formato: Pasta|URL_Git)
 REPOS=(
-  "aspmanager-service-discovery|git@github.com:ucsal/aspmanager-service-discovery.git"
-  "aspmanager-auth-service|git@github.com:ucsal/aspmanager-auth-service.git"
-  "aspmanager-espaco-service|git@github.com:ucsal/aspmanager-espaco-service.git"
-  "aspmanager-usuario-service|git@github.com:ucsal/aspmanager-usuario-service.git"
-  "aspmanager-escola-service|git@github.com:ucsal/aspmanager-escola-service.git"
-  "aspmanager-software-service|git@github.com:ucsal/aspmanager-software-service.git"
+  "aspmanager-service-discovery|https://github.com/ucsal/aspmanager-service-discovery.git"
+  "aspmanager-auth-service|https://github.com/ucsal/aspmanager-auth-service.git"
+  "aspmanager-espaco-service|https://github.com/ucsal/aspmanager-espaco-service.git"
+  "aspmanager-usuario-service|https://github.com/ucsal/aspmanager-usuario-service.git"
+  "aspmanager-escola-service|https://github.com/ucsal/aspmanager-software-service.git"
+  "aspmanager-software-service|https://github.com/ucsal/aspmanager-escola-service.git"
 )
 
 # Loop para clonar os repositórios faltantes
