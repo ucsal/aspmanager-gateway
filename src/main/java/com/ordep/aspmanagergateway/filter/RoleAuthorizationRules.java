@@ -79,7 +79,7 @@ public final class RoleAuthorizationRules {
         // CRUD de espaços — só ADMIN gerencia, ambos consultam
         RULES.put("POST:/api/v1/espaco",                             List.of("ADMIN"));
         RULES.put("PUT:/api/v1/espaco/*",                            List.of("ADMIN"));
-        RULES.put("PUT:/api/v1/espaco/solicitacao",                            List.of("ADMIN"));
+        RULES.put("PUT:/api/v1/espaco/solicitacao/**",                            List.of("ADMIN"));
         RULES.put("PATCH:/api/v1/espaco/*",                          List.of("ADMIN"));
         RULES.put("DELETE:/api/v1/espaco/*",                         List.of("ADMIN"));
         RULES.put("GET:/api/v1/espaco/**",                           List.of("ADMIN", "PROFESSOR"));
